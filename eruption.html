@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volcano</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #FF9F7F;
+            font-family: 'Poppins';
+        }
+
+        .drop-cap {
+            font-size: 3em;
+            font-weight: bold;
+            float: left;
+            margin-right: 0.1em;
+            line-height: 1em;
+        }
+
+        .justified-text {
+            text-align: justify;
+            font-size: 20px;
+        }
+
+        .mini-earth-img {
+            max-width: 100%;
+            height: auto;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .bagian {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            scroll-snap-align: start;
+            border-top: 4px solid #844131;
+            border-bottom: 4px solid #844131;
+        }
+
+        .refensi {
+            width: 100%;
+            flex-direction: column;
+            scroll-snap-align: start;
+            border-top: 4px solid #844131;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .container::-webkit-scrollbar {
+            background-color: transparent;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background-color: transparent;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        .chart-container {
+            display: flex;
+            align-items: flex-end;
+            height: 220px;
+            width: 600px;
+            margin: 20px auto;
+        }
+
+        .chartBox {
+            width: 800px;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .section2-title,
+        .section3-title,
+        .section5-title {
+            font-weight: bold;
+            text-shadow: none;
+            font-size: 50px;
+        }
+
+        .card {
+            width: 280px;
+            height: 330px;
+        }
+
+        .col-sm-6 {
+            padding: 10px;
+        }
+
+        .section1-title {
+            color: #844131;
+            font-weight: 900;
+            text-shadow: none;
+            font-size: 100px
+        }
+
+        .section1-title {
+            margin-top: -30px;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 30px;
+        }
+        .section5-img {
+            width: 560px;
+            height: 315px;
+        }
+        @media screen and (max-width:1000px) {
+
+            .section2-title,
+            .section5-title {
+                font-size: 30px
+            }
+
+            .section3-title {
+                font-size: 40px;
+            }
+
+            .card {
+                font-size: 70%;
+                width: 180px;
+                height: 240px;
+            }
+
+            .referensi-link {
+                font-size: small;
+            }
+        }
+
+        @media screen and (max-width:600px) {
+            .chartBox {
+                width: auto;
+                height: 200px;
+            }
+
+            .section2-title,
+            .section5-title {
+                font-size: 30px
+            }
+            .section5 .row {
+                flex-direction: column;
+            }
+            .section3-title {
+                font-size: 40px;
+            }
+
+            .card {
+                font-size: 70%;
+                width: 180px;
+                height: 240px;
+            }
+
+            .col-sm-6 {
+                padding: 10px;
+                width: auto;
+
+            }
+
+            .card-section3 {
+                justify-content: center;
+            }
+
+            .section3 {
+                height: auto;
+            }
+
+            .refensi-row {
+                flex-direction: column;
+            }
+
+            .col-4 {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width:500px) {
+            .img-fluid {
+                width: 50%;
+            }
+
+            .section1-title {
+                font-size: 60px;
+                margin-top: -25px;
+            }
+
+            .justified-text {
+                font-weight: 900;
+                font-size: 16px;
+            }
+
+            .justified-text .drop-cap {
+                font-size: 2em;
+                margin-right: 0.1em;
+                line-height: 1em;
+            }
+
+            .section5-img {
+                width: 100%;
+            }
+
+            .section5-title {
+                font-size: 30px;
+            }
+
+            .section5-link {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" style="position: fixed; z-index: -1; opacity: 60%;"></canvas>
+
+    <div class="container" style="opacity: 80%;">
+        <a href="index.html">
+            <img src="image/miniEarth.png" alt="miniEarth" class="mini-earth-img" id="mini-earth-img">
+        </a>
+
+        <div class="bagian ps-4 pe-4" style="border-top:none">
+            <div class="row text-center">
+                <div class="col">
+                    <img src="image/volcano 2.png" class="img-fluid" alt="..." width="100%">
+                </div>
+            </div>
+            <div class="row text-center section1-title">
+                <div class="col">
+                    <span class="">ERUPTION</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="justified-text">
+                        <span class="drop-cap">V</span>olcanic eruption is the expulsion of gases, rock fragments,
+                        and/or molten lava from within
+                        the Earth through a vent onto the Earth's surface or into the atmosphere. Volcanic
+                        eruptions have the potential to destroy a lot of lives and property. They might be mild, as
+                        those
+                        frequently seen in Hawaiian volcanoes, or extremely destructive, like the Vesuvius eruption
+                        that obliterated Pompeii in 79 CE.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bagian section2">
+            <div class="row text-center justify-content-center" style="margin-top:-40px;">
+                <div class="col-10">
+                    <span class="section2-title">Frequency from 2000 - 2023</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="chartBox">
+                        <canvas id="myChart" style="width: 100%;height: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bagian section3">
+            <div class="row text-center">
+                <div class="col-12">
+                    <span class="section3-title">Impact to Communities</span>
+                </div>
+            </div>
+            <center>
+                <div class="row card-section3">
+                    <div class="col-sm-6 col-md-4 ">
+                        <div class="card">
+                            <img src="image/image 14 2.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">Health concerns after a volcanic eruption include infectious
+                                    disease, respiratory illness, burns, injuries from falls, and many more</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 ">
+                        <div class="card">
+                            <img src="image/image 11 2.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">Many have fallen victim to falling rocks from a volcanic blast.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 ">
+                        <div class="card">
+                            <img src="image/image 15.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">Habitats and landscapes are damaged by lava flows.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 ">
+                        <div class="card">
+                            <img src="image/image 17.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">Ash ejected by the volcano acts as a good fertiliser for soils.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 ">
+                        <div class="card">
+                            <img src="image/image 18.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">Rising magma brings valuable minerals to the surface, creating
+                                    mining opportunities.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 ">
+                        <div class="card">
+                            <img src="image/image 19.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">The high level of heat and activity inside the earth, close to a
+                                    volcano, can provide opportunities for generating geothermal energy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        </div>
+
+        <div class="bagian section5">
+            <div class="row text-start align-items-center justify-content-center">
+                <div class="col">
+                    <span class="section5-title">Further Information</span>
+                    <br>
+                    <span><a href="https://www.youtube.com/embed/LQwZwKS9RPs" class="section5-link">How do storms
+                            form?</a></span>
+                </div>
+                <div class="col">
+                    <iframe class="img-fluid section5-img" src="https://www.youtube.com/embed/LQwZwKS9RPs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="refensi container">
+            <div class="row">
+                <div class="col">
+                    <span class="section5-title">References</span>
+                </div>
+            </div>
+
+            <div class="row refensi-row" style="word-wrap: break-word;">
+                <div class="col">
+                    <ul>
+                        <li><a class="referensi-link"
+                                href="https://ourworldindata.org/natural-disasters">https://ourworldindata.org/natural-disasters</a>
+                        </li>
+                        <li><a class="referensi-link"
+                                href="https://volcano.si.edu/faq/index.cfm?question=eruptionsbyyear">https://volcano.si.edu/faq/index.cfm?question=eruptionsbyyear</a>
+                        </li>
+                        <li><a class="referensi-link"
+                                href="https://ourworldindata.org/grapher/deaths-from-volcanic-eruptions?time=2000..2017">https://ourworldindata.org/grapher/deaths-from-volcanic-eruptions?time=2000..2017</a>
+                        </li>
+                        <li><a class="referensi-link"
+                                href="https://www.who.int/health-topics/volcanic-eruptions#tab=tab_1">https://www.who.int/health-topics/volcanic-eruptions#tab=tab_1</a>
+                        </li>
+                        <li><a class="referensi-link"
+                                href="http://itic.ioc-unesco.org/index.php?option=com_content&view=category&id=1160&Itemid=1077 ">http://itic.ioc-unesco.org/index.php?option=com_content&view=category&id=1160&Itemid=1077
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script src="smoke.js-master/smoke.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+<script>
+    var canvas = document.getElementById('canvas')
+    var ctx = canvas.getContext('2d')
+    canvas.width = innerWidth
+    canvas.height = innerHeight
+
+    var party = smokemachine(ctx, [18, 16, 54])
+    party.start() // start animating
+    party.setPreDrawCallback(function (dt) {
+        party.addSmoke(70, 1000, .5)
+        party.addSmoke(1500, 1000, .5)
+        canvas.width = innerWidth
+        canvas.height = innerHeight
+    })
+</script>
+<script>
+    var chrt = document.getElementById("myChart").getContext("2d");
+    var chartId = new Chart(chrt, {
+        type: 'bar',
+        data: {
+            labels: ['2000-2004', '2005-2009', '2010-2014', '2015-2019', '2020-2023'],
+            datasets: [{
+                label: "Frequency",
+                data: [365, 411, 391, 402, 295],
+                backgroundColor: ['#844131'],
+                borderColor: ['rgba(0, 0, 0, 100)'],
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            responsive: false,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function (tooltipItems) {
+                            if (tooltipItems[0].label === "2000-2004") {
+                                return "2000-2004\nDeaths: 178\nInjuries: -";
+                            } else if (tooltipItems[0].label === "2005-2009") {
+                                return "2005-2009\nDeaths: 1.324\nInjuries: 100";
+                            } else if (tooltipItems[0].label === "2010-2014") {
+                                return "2010-2014\nDeaths: 506\nInjuries: 0";
+                            } else if (tooltipItems[0].label === "2015-2019") {
+                                return "2015-2019\nDeaths: 686\nInjuries: 32.010";
+                            } else if (tooltipItems[0].label === "2020-2023") {
+                                return "2020-2023\nDeaths: 148\nInjuries: 104";
+                            } else {
+                                return tooltipItems[0].label;
+                            }
+                        },
+                    },
+                    titleFont: {
+                        size: 20
+                    },
+                },
+            },
+        },
+    });
+</script>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Index</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .container-fluid {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .linecontainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .linecenter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .globe {
+            width: 300px;
+        }
+
+        .line-image {
+            transition: transform 1.5s ease-in-out;
+        }
+
+        .line-image.clicked {
+            transform: translateY(-95px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="linecontainer">
+            <div class="linecenter">
+                <a href="menu.html" id="earthquake-link">
+                    <img src="image/Earth.png" class="line-image" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const earthquakeLink = document.getElementById('earthquake-link');
+            const lineImage = document.querySelector('.line-image');
+
+            earthquakeLink.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                // Add the 'clicked' class to trigger the animation
+                lineImage.classList.add('clicked');
+
+                // Wait for the animation to finish, then navigate to the next page
+                setTimeout(function () {
+                    window.location.href = earthquakeLink.href;
+                }, 1500); // Adjust the delay as needed
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
